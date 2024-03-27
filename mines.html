@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Campo Minado - Cassino</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: #fff;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(8, 50px);
+            grid-template-rows: repeat(8, 50px);
+            gap: 2px;
+            margin: 20px auto;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            background-color: #bbb;
+        }
+
+        .cell {
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cell.revealed {
+            background-color: #ccc;
+        }
+
+        .cell.bomb {
+            background-color: #ff3333;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4586ff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #356ec5;
+        }
+
+        .bet-section {
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .bet-input {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            width: 100px;
+            text-align: center;
+        }
+
+        .balance {
+            margin-top: 10px;
+            color: #fff;
+        }
+
+        .retirar-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4586ff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .retirar-button:hover {
+            background-color: #356ec5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo de Campo Minado - Cassino</h1>
+        <div id="board" class="board"></div>
+        <div class="buttons">
+            <button onclick="startGame()">Iniciar Jogo</button>
+            <button onclick="resetGame()">Reiniciar Jogo</button>
+        </div>
+    </div>
+
+    <div class="bet-section">
+        <label for="bet">BET:</label>
+        <input type="number" id="bet" name="bet" min="1" class="bet-input">
+        <br>
+        <label for="mines">Minas:</label>
+        <input type="number" id="mines" name="mines" min="1" class="bet-input">
+        <br>
+        <button onclick="apostar()">Apostar</button>
+        <div class="balance">Saldo em Conta: <span id="saldo">R$100,00</span></div>
+        <button class="retirar-button" onclick="retirarGanhos()">Retirar Ganhos</button>
+    </div>
+
+    <script>
+        const board = document.getElementById('board');
+        const size = 8;
+        let numBombs;
+        let cells = [];
+        let saldo = 100.00; // Saldo inicial
+
+        function startGame() {
+            clearBoard();
+            numBombs = Math.floor(Math.random() * (15 - 10 + 1)) + 10;
+            createBoard();
+        }
+
+        function resetGame() {
+            clearBoard();
+            startGame();
+        }
+
+        function clearBoard() {
+            board.innerHTML = '';
+            cells = [];
+        }
+
+        function createBoard() {
+            for (let i = 0; i < size * size; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.dataset.index = i;
+                cell.addEventListener('click', () => revealSquare(cell));
+                board.appendChild(cell);
+                cells.push(cell);
+            }
+        }
+
+        function revealSquare(square) {
+            const index = parseInt(square.dataset.index);
+            if (cells[index].classList.contains('revealed') || cells[index].classList.contains('bomb')) return;
+            cells[index].classList.add('revealed');
+            if (Math.random() < 0.2 && numBombs > 0) {
+                cells[index].classList.add('bomb');
+                numBombs--;
+            }
+        }
+
+        function apostar() {
+            const betInput = document.getElementById('bet');
+            const minesInput = document.getElementById('mines');
+            const bet = parseInt(betInput.value);
+            const mines = parseInt(minesInput.value);
+
+            if (bet > 0 && mines > 0 && saldo >= bet) {
+                saldo -= bet; // Reduz a aposta do saldo atual
+                document.getElementById('saldo').textContent = `R$${saldo.toFixed(2)}`; // Atualiza o saldo na tela
+                iniciarJogo(bet, mines); // Inicia o jogo com a aposta e número de minas especificados
+            } else {
+                alert('A aposta ou o número de minas é inválido ou você não possui saldo suficiente.');
+            }
+        }
+
+        function retirarGanhos() {
+            const ganhos = calcularGanhos(); // Calcula os ganhos
+            saldo += ganhos; // Adiciona os ganhos ao saldo
+            document.getElementById('saldo').textContent = `R$${saldo.toFixed(2)}`; // Atualiza o saldo na tela
+            alert(`Ganhos retirados com sucesso!\nGanhos: R$${ganhos.toFixed(2)}\nNovo Saldo: R$${saldo.toFixed(2)}`);
+        
+
+              // Implemente sua lógica para iniciar o jogo com a aposta e número de minas especificados
+            // Por exemplo, você pode configurar o jogo
+            console.log('Jogo iniciado com a aposta:', bet, 'e', mines, 'minas.');
+        }
+
+        function calcularGanhos() {
+            // Implemente sua lógica para calcular os ganhos com base no desempenho do jogador
+            // Por exemplo, você pode considerar o número de minas corretamente identificadas
+            const ganhos = Math.random() * 50; // Exemplo de ganhos, substitua pelo cálculo real
+            return ganhos;
+        }
+    </script>
+</body>
+</html>
+

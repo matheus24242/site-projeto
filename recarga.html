@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recarga</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-container {
+      background-color: #add8e6;
+      padding: 100px; /* Ajustado o padding para aumentar o contêiner */
+    }
+
+    .container {
+      max-width: 750px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 80px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      margin-top: -150px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: red; /* Alterado para vermelho */
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 50%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .error {
+      color: red;
+      margin-top: 5px;
+    }
+
+    .amount-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .amount-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 0 10px 10px 0;
+      transition: background-color 0.3s;
+    }
+
+    .amount-button:hover {
+      background-color: #0056b3;
+    }
+
+    .rules {
+      text-align: center;
+      font-size: 14px;
+      color: red; /* Alterado para vermelho */
+    }
+
+    .balance {
+      font-size: 24px;
+      margin-bottom: 20px; /* Ajuste o espaçamento inferior conforme necessário */
+      color: #333;
+      font-weight: bold;
+      text-align: center;
+      margin-top: -80px; /* Mova o saldo para cima ajustando o valor negativo */
+    }
+
+    .balance-description {
+      font-size: 14px;
+      text-align: center;
+      margin-top: -1px; /* Mova a descrição para cima ajustando o valor negativo */
+      color: black;
+    }
+
+    .amount-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+      margin-top: 15px; /* Adicione uma margem superior para as opções de recarga */
+      z-index: 1; /* Certifique-se de que as opções de recarga estejam na frente */
+    }
+
+    .description-container {
+      margin-top: -5px;
+    }
+
+    .proceed-button {
+      display: block;
+      margin: 20px auto;
+      text-align: center;
+      text-decoration: none; /* Remover sublinhado
+
+
+        .proceed-button:hover {
+            background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-container">
+        <!-- Conteúdo do cabeçalho -->
+    </div>
+
+    <div class="container">
+        <h1>Recarga</h1>
+        <div class="eye-icon" onclick="toggleBalanceVisibility()">
+            
+        </div>
+        <div class="balance" id="balance">R$7.500,00</div> <!-- Apenas o valor do saldo em negrito e maior -->
+        <div class="balance-description">Saldo disponível</div> <!-- Descrição do saldo em tamanho menor -->
+        <div class="amount-buttons">
+            <button class="amount-button" onclick="selectAmount(50)">R$50</button>
+            <button class="amount-button" onclick="selectAmount(100)">R$100</button>
+            <button class="amount-button" onclick="selectAmount(200)">R$200</button>
+            <button class="amount-button" onclick="selectAmount(250)">R$250</button>
+            <button class="amount-button" onclick="selectAmount(300)">R$300</button>
+            <button class="amount-button" onclick="selectAmount(500)">R$500</button>
+            <button class="amount-button" onclick="selectAmount(1000)">R$1000</button>
+            <button class="amount-button" onclick="selectAmount(1500)">R$1500</button>
+            <button class="amount-button" onclick="selectAmount(3000)">R$3000</button>
+            <button class="amount-button" onclick="selectAmount(5000)">R$5000</button>
+            <button class="amount-button" onclick="selectAmount(10000)">R$10000</button>
+        </div>
+        <form id="rechargeForm" onsubmit="retrieveCustomAmount(); return false;">
+            <div class="form-group">
+                <label for="customAmount">Valor da recarga (em R$):</label> <!-- Adicionada descrição -->
+                <input type="number" name="customAmount" id="customAmount" min="0" step="any">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="proceed-button">Prosseguir com Recarga</button>
+            </div>
+            <div id="errorMessage" class="error"></div>
+        </form>
+    </div>
+
+    <div class="description-container">
+        <div class="rules">
+            <p>As recargas serão processadas em até 24 horas.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Função para armazenar o valor da recarga no localStorage
+        function storeCustomAmount(amount) {
+            localStorage.setItem('customAmount', amount);
+        }
+
+        // Função para recuperar o valor digitado pelo usuário e armazená-lo
+        function retrieveCustomAmount() {
+            var customAmountInput = document.getElementById('customAmount');
+            var customAmount = parseFloat(customAmountInput.value);
+            if (!isNaN(customAmount)) {
+                // Se o valor for válido, armazená-lo e redirecionar
+                storeCustomAmount(customAmount);
+                window.location.href = 'pagamentos.html'; // Redirecionar para a página de pagamentos
+            }
+        }
+
+        // Função para exibir o valor armazenado no localStorage
+        function displayStoredAmount() {
+            var storedAmount = localStorage.getItem('customAmount');
+            if (storedAmount) {
+                document.getElementById('customAmount').value = storedAmount;
+            }
+        }
+
+        // Chamar a função ao carregar a página
+        displayStoredAmount();
+    </script>
+</body>
+
+</html>
+
+

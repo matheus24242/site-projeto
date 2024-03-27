@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retirada Pix</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-container {
+      background-color: #add8e6;
+      padding: 100px; /* Ajustado o padding para aumentar o contêiner */
+    }
+
+    .container {
+      max-width: 750px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 80px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      margin-top: -150px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: red; /* Alterado para vermelho */
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 50%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .error {
+      color: red;
+      margin-top: 5px;
+    }
+
+    .amount-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .amount-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 0 10px 10px 0;
+      transition: background-color 0.3s;
+    }
+
+    .amount-button:hover {
+      background-color: #0056b3;
+    }
+
+    .rules {
+      text-align: center;
+      font-size: 14px;
+      color: red; /* Alterado para vermelho */
+    }
+
+    .balance {
+      font-size: 24px;
+      margin-bottom: 20px; /* Ajuste o espaçamento inferior conforme necessário */
+      color: #333;
+      font-weight: bold;
+      text-align: center;
+      margin-top: -80px; /* Mova o saldo para cima ajustando o valor negativo */
+    }
+
+    .balance-description {
+      font-size: 14px;
+      text-align: center;
+      margin-top: -1px; /* Mova a descrição para cima ajustando o valor negativo */
+      color: black;
+    }
+
+    .amount-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+      margin-top: 15px; /* Adicione uma margem superior para as opções de recarga */
+      z-index: 1; /* Certifique-se de que as opções de recarga estejam na frente */
+    }
+
+    .description-container {
+      margin-top: -5px;
+    }
+
+    .
+
+    </style>
+</head>
+
+<body>
+    <div class="header-container">
+        <!-- Conteúdo do cabeçalho -->
+    </div>
+
+    <div class="container">
+        <h1>Retirada</h1>
+        <div class="eye-icon" onclick="toggleBalanceVisibility()">
+            <img src="eye-icon.png" alt="Olho">
+        </div>
+        <div class="balance" id="balance">R$7.500,00</div> <!-- Apenas o valor do saldo em negrito e maior -->
+        <div class="balance-description">Saldo disponível</div> <!-- Descrição do saldo em tamanho menor -->
+        <div class="amount-buttons">
+            <button class="amount-button" onclick="selectAmount(50)">R$50</button>
+            <button class="amount-button" onclick="selectAmount(150)">R$150</button>
+            <button class="amount-button" onclick="selectAmount(800)">R$800</button>
+            <button class="amount-button" onclick="selectAmount(1000)">R$1000</button>
+            <button class="amount-button" onclick="selectAmount(50)">R$500</button>
+            <button class="amount-button" onclick="selectAmount(150)">R$1500</button>
+           
+        </div>
+        <form id="withdrawalForm">
+            <div class="form-group">
+                <label for="customAmount">Valor de retirada (em R$):</label> <!-- Adicionada descrição -->
+                <input type="number" name="customAmount" id="customAmount" min="0" step="any">
+            </div>
+            <div class="form-group">
+                <label for="pix">Chave PIX:</label> <!-- Adicionada descrição -->
+                <input type="text" name="pix" id="pix">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Solicitar Retirada">
+            </div>
+            <div id="errorMessage" class="error"></div>
+        </form>
+    </div>
+
+    <div class="description-container">
+    <div class="rules">
+        <p>Retirada mínima de R$50</p>
+        <p>Horário de retirada de segunda a segunda, 24h, 7 dias por semana</p>
+        <p>Pagamento tem prazo de 24 horas para cair na conta</p>
+        <p>Os bancos podem cobrar taxas de 10% sobre a retirada</p>
+        <p>A retirada será creditada em até 24h</p>
+    </div>
+
+    <script>
+        function selectAmount(amount) {
+            document.getElementById('customAmount').value = amount;
+        }
+
+        function toggleBalanceVisibility() {
+            var balance = document.getElementById('balance');
+            balance.style.display = (balance.style.display === 'none' || balance.style.display === '') ? 'block' : 'none';
+        }
+
+        document.getElementById('withdrawalForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Obter o valor de retirada selecionado ou inserido pelo usuário
+            let amount = parseFloat(document.getElementById('customAmount').value);
+
+            // Verificar se o valor de retirada é maior ou igual a R$50
+            if (amount < 50) {
+                document.getElementById('errorMessage').textContent = 'O valor mínimo de retirada é R$50.';
+                return;
+            }
+
+            // Aqui você pode adicionar a lógica para enviar a solicitação de retirada com a chave PIX
+            // Por exemplo, você pode enviar uma solicitação para o servidor ou exibir uma mensagem de confirmação
+
+            // Limpar mensagem de erro se houver
+            document.getElementById('errorMessage').textContent = '';
+
+            // Simulação de envio bem-sucedido (substitua por sua lógica real)
+            alert('Solicitação de retirada enviada com sucesso!');
+        });
+    </script>
+</body>
+
+</html>
+
+

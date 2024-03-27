@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cassino</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background-color: black;
+            padding: 10px 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-container {
+            display: flex;
+            animation: moveBanners 20s infinite;
+        }
+
+        .banner {
+            width: 600px;
+            height: auto;
+            border-radius: 0%;
+            margin-right: 20px;
+        }
+
+        @keyframes moveBanners {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-620px); }
+        }
+
+        .balance-container {
+            display: flex;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-top: -120px;
+        }
+
+        .balance {
+            font-size: 16px;
+            margin-right: 20px;
+        }
+
+        .nav-bar {
+            background-color: #333;
+            color: white;
+            padding: 25px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .nav-item {
+            margin-right: 50px;
+            cursor: pointer;
+        }
+
+        .games-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .game-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background-color: #444;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background-color: #fff;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-container:hover .play-button {
+            opacity: 1;
+        }
+
+        .game-container img {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .game-container:hover img {
+            transform: scale(1.1);
+        }
+
+        .special-buttons {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .deposit-button, .withdraw-button, .interest-button {
+            background-color: yellow;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .withdraw-button:hover {
+            background-color: yellow;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Cabeçalho -->
+<div class="header">
+    <div class="banner-container">
+        <img src="img/1322.png" alt="Banner do Cassino" class="banner">
+        <img src="img/123789.png" alt="Banner do Cassino" class="banner">
+        <img src="img/1322.png" alt="Banner do Cassino" class="banner">
+        <img src="img/123789.png" alt="Banner do Cassino" class="banner">
+        
+    </div>
+    
+    <h1>Cassino</h1>
+</div>
+
+<!-- Barra de Navegação -->
+<div class="nav-bar">
+    <div class="nav-item">Jogos</div>
+    <div class="nav-item">Promoções</div>
+    <div class="nav-item">Sobre Nós</div>
+    <div class="nav-item">Contato</div>
+    <span class="balance" style="margin-left:425px;">Saldo: R$ 100,00</span>
+    <a href="recarga.html" class="deposit-button" style="margin-left:10px;">Depósito</a>
+    <a href="retirada.html" class="withdraw-button" style="margin-left:10px;">Retirada</a>
+    <a href="juros.html" class="interest-button" style="margin-left:10px;">Juros</a>
+</div>
+
+
+</div>
+
+<!-- Contêineres dos Jogos -->
+<div class="games-container">
+    <div class="game-container">
+        <img src="img/123.jpeg" alt="Jogo 1">
+        <button class="play-button">Jogar</button>
+        <div class="special-buttons">
+            <a href="apostar.html" class="deposit-button">Apostar</a>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <img src="img/imagem12.jpeg" alt="Jogo 2">
+        <button class="play-button">Jogar</button>
+        <div class="special-buttons">
+            <a href="apostar.html" class="deposit-button">Apostar</a>
+        </div>
+    </div>
+    
+    <div class="game-container">
+        <img src="img/imagem456.jpeg" alt="Jogo 3">
+        <button class="play-button">Jogar</button>
+        <div class="special-buttons">
+            <a href="apostar.html" class="deposit-button">Apostar</a>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <img src="img
+/img789.jpeg" alt="Jogo 4">
+        <button class="play-button">Jogar</button>
+        <div class="special-buttons">
+            <a href="apostar.html" class="deposit-button">Apostar</a>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <img src="img/imagem1111111.jpeg" alt="Jogo 5">
+        <button class="play-button">Jogar</button>
+        <div class="special-buttons">
+            <a href="apostar.html" class="deposit-button">Apostar</a>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <img src="img/img7956.jpeg" alt="Jogo 6">
+        <button class="play-button">Jogar</button>
+        <div class="special-buttons">
+            <a href="apostar.html" class="deposit-button">Apostar</a>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <img src="img/io85.jpeg" alt="Jogo 7">
+        <button class="play-button">Jogar</button>
+        <div class="special-buttons">
+            <a href="apostar.html" class="deposit-button">Apostar</a>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script>
+    // Adicione aqui os scripts necessários para a funcionalidade dos botões
+</script>
+</body>
+</html>
+

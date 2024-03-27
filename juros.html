@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            background: black;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .balance {
+            text-align: center;
+            color: white;
+            font-size: 2em;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .button {
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #32cd32;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .tab {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        table {
+            width: 100%;
+            color: white;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="balance">
+            Saldo Existente: R$0,00
+        </div>
+        <div class="buttons">
+            <a href="#" class="button">Depósito</a>
+            <a href="#" class="button">Retirar</a>
+        </div>
+        <div class="tabs">
+            <a href="#" class="tab">Detalhes do registro</a>
+            <a href="#" class="tab">Regras de juros</a>
+        </div>
+        <table>
+            <tr>
+                <th>Horas</th>
+                <th>Tipos</th>
+                <th>Quantia</th>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

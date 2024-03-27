@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Cassino</title>
+    <link rel="shortcut icon" type="image/png" href="imagens/Icon.png">
+</head>
+<style>
+    .header-container {
+    background-color: #000;
+    padding: 20px 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    height: 50px; /* Ajuste a altura conforme necessário */
+}
+
+.nav_links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav_links li {
+    display: inline;
+}
+
+.nav_links li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav_links li a:hover {
+    background-color: #333;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #eead2d;
+    color: #edf0f1;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ac7915;
+}
+
+.Mid_text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 65px;
+    text-shadow: rgba(0, 0, 0, 0.5) 0.1em 0.1em 0.2em;
+    color: #edf0f1;
+    justify-content: right;
+    padding: 0px 3%;
+    margin-top: 200px;
+    background: none;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Ajuste a transparência conforme necessário */
+    z-index: 9999; /* Certifique-se de que o cabeçalho esteja acima de outros elementos */
+}
+.background {
+    background-image: url('img/imagem7.jpg');
+    background-repeat: no-repeat;   
+    background-size: cover;
+    background-position: center;
+}
+
+</style>
+<body class="background">
+
+<div class="header-container">
+    <header>
+        <img class="logo" src="imagens/Logo.PNG">
+        <nav>
+            <ul class="nav_links">
+                <li><a href="comojogar.html">Como Jogar?</a></li>
+                <li><a href="obtermoedas.html">Obter Moedas</a></li>
+                <li><a href="cadastro.html">Meu Perfil</a></li>
+            </ul>
+        </nav>
+        <a href="cadastro.html"><button>Apostar</button></a>
+    </header>
+</div>
+
+<h1 class="Mid_text">
+    Faça parte da melhor casa de aposta do Brasil venha conosco </br>
+</h1>
+
+</body>
+</html>

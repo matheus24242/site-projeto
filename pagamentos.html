@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black; /* Alterando o fundo para preto */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px; /* Largura máxima do conteúdo */
+            margin: 20px auto; /* Centralizar o conteúdo verticalmente e horizontalmente */
+            background-color: white; /* Cor de fundo do conteúdo */
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+            text-align: center; /* Centralizar o texto */
+            width: 400px;
+            height: px;
+
+        }
+
+        .qr-code-container {
+            margin-bottom: 20px;
+        }
+
+        #qrcodeImage {
+            max-width: 250px; /* Largura máxima do QR Code */
+            height: auto;
+        }
+
+        .payment-info {
+            margin-bottom: 20px;
+        }
+
+        .payment-info p {
+            font-size: 16px; /* Tamanho da fonte */
+            color: #333; /* Cor do texto */
+        }
+
+        .payment-info p:first-child {
+            margin-bottom: 10px;
+        }
+
+        .countdown {
+            font-size: 18px; /* Tamanho da fonte */
+            color: red; /* Cor do texto */
+        }
+
+        .amount-info {
+            font-size: 20px; /* Tamanho da fonte */
+            font-weight: bold; /* Negrito */
+            color: #333; /* Cor do texto */
+            margin-bottom: 10px; /* Espaçamento inferior */
+        }
+
+        .pix-logo {
+            margin-top: -20px; 
+            width: 300px;
+            margin-left: -25px;
+        }
+
+        .success-message {
+            color: green; /* Cor do texto para mensagens de sucesso */
+            font-weight: bold; /* Negrito */
+            margin-top: 20px; /* Espaçamento superior */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="amount-info" id="chosenAmount">Pagar</div> <!-- Valor escolhido pelo usuário -->
+        <div class="qr-code-container">
+            <img id="qrcodeImage" src="img/imagem2.jpeg" alt="QR Code PIX">
+        </div>
+        <div class="payment-info">
+            <p>Escaneie o QR Code com seu aplicativo PIX para efetuar o pagamento.</p>
+            <p>O pagamento deve ser realizado em até 5 minutos.</p>
+            <p>Por favor nos envie seu comprovante pelo email empresainvest@investimento.com.br</p>
+            <p>Sua recarga será creditada em 10 minutos</p>
+        </div>
+        <img class="pix-logo" src="img/imagem4.png" alt="Logo PIX"> <!-- Adicione o caminho para a sua logo do PIX -->
+        <div class="success-message" id="successMessage" style="display: none;">Recarga creditada e saldo atualizado!</div>
+    </div>
+
+    <script>
+        // Função para recuperar o valor armazenado no localStorage e exibi-lo
+        function displayStoredAmount() {
+            var storedAmount = localStorage.getItem('customAmount');
+            if (storedAmount) {
+                document.getElementById('chosenAmount').textContent = 'Pagar R$' + parseFloat(storedAmount).toFixed(2);
+            }
+        }
+
+        // Simulação de pagamento bem-sucedido (pode ser substituído por uma lógica de back-end real)
+        function simulatePayment() {
+            // Aqui você pode adicionar a lógica de atualização do saldo do usuário
+            // Após a atualização bem-sucedida, exiba a mensagem de sucesso
+            document.getElementById('successMessage').style.display = 'block';
+        }
+
+        // Chamar a função ao carregar a página
+        displayStoredAmount();
+
+        // Simular o pagamento bem-sucedido após um intervalo de tempo (5 segundos neste exemplo)
+        setTimeout(simulatePayment, 5000);
+    </script>
+</body>
+</html>
